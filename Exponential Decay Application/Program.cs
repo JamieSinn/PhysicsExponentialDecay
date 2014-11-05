@@ -20,12 +20,45 @@ namespace Exponential_Decay_Application
 
         static void Main(string[] args)
         {
-
+            
+            Console.WriteLine("Welcome to the Exponential Decay Model - Made by Jamie Sinn");
+            while (true)
+            {
+                string input;
+                Console.WriteLine("Please enter the number of atoms that you will be decaying");
+                input = Console.ReadLine();
+                int atoms = Convert.ToInt32(input);
+                GenerateAtoms(atoms);
+                DecayAtoms();
+                Console.WriteLine("In this batch, there were {0} atoms decayed.", GetDecayedAtoms());
+                Console.WriteLine("Simulation over, please press enter to continue");
+                ResetAllAtoms();
+            }
+            
         }
-        static int DecayAttoms()
+        static void ResetAllAtoms()
         {
+            atomsDecayed = 0;
+            atomList.Clear();
+            atomCount = 0;
+            
+        }
+        static void DecayAtoms()
+        {
+            for (int i = 0; i < atomList.Count; i++)
+            {
+                if (i != null)
+                {
+                    float a = atomList.ElementAt(i) * 0.1f;
+                    if (a.Equals(1))
+                    {
+                        atomsDecayed++;
+                    }
+                }
 
-            return 0;
+
+            }
+               
         }
         static void GenerateAtoms(int count)
         {
@@ -38,15 +71,9 @@ namespace Exponential_Decay_Application
 
             }
         }
-        static void GetDecayedAtoms()
+        static int GetDecayedAtoms()
         {
-            foreach(int a in atomList)
-            {
-                if(a.Equals(1))
-                {
-                    atomsDecayed++;
-                }
-            }
+            return atomsDecayed;
         }
         static void WriteToFile(string line, int type)
         {
