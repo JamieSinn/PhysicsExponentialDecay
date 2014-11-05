@@ -14,6 +14,7 @@ namespace Exponential_Decay_Application
         static int atomCount = 200;
         static float decayPct = 0.1f;
         static int atomsDecayed = 0;
+        static int time = 0;
         static List<int> atomList = new List<int>();
 
           
@@ -25,14 +26,39 @@ namespace Exponential_Decay_Application
             while (true)
             {
                 string input;
+                int atoms;
                 Console.WriteLine("Please enter the number of atoms that you will be decaying");
                 input = Console.ReadLine();
-                int atoms = Convert.ToInt32(input);
+                if(input.Equals("auto"))
+                {
+                    Console.WriteLine("Enter the starting value for the automatic processing: ");
+                    input = Console.ReadLine();
+                    atoms = Convert.ToInt32(input);
+                    AutomaticProcessing(atoms);
+                }
+                atoms = Convert.ToInt32(input);
                 GenerateAtoms(atoms);
                 DecayAtoms();
                 Console.WriteLine("In this batch, there were {0} atoms decayed.", GetDecayedAtoms());
                 Console.WriteLine("Simulation over, please press enter to continue");
                 ResetAllAtoms();
+            }
+            
+        }
+
+        static void AutomaticProcessing(int atoms)
+        {
+            int currentatoms = atoms;
+            while(currentatoms > 0)
+            {
+                
+                GenerateAtoms(currentatoms);
+                DecayAtoms();
+                currentatoms = currentatoms - GetDecayedAtoms();
+                time++;
+                Console.WriteLine("Atoms: {0} Decayed: {1} Hour: {2}", currentatoms, atomsDecayed, time);
+                ResetAllAtoms();
+                
             }
             
         }
