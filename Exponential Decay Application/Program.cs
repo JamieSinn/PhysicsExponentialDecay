@@ -75,7 +75,7 @@ namespace Exponential_Decay_Application
             {
                 if (i != null)
                 {
-                    float a = atomList.ElementAt(i) * 0.1f;
+                    float a = atomList.ElementAt(i) * decayPct;
                     if (a.Equals(1))
                     {
                         atomsDecayed++;
